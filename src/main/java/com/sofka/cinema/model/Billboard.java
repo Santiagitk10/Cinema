@@ -3,6 +3,7 @@ package com.sofka.cinema.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "Billboard")
@@ -14,6 +15,17 @@ public class Billboard {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long billboardId;
     private String theater;
-    private List<Movie> movieList;
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER
+    )
+    private List<Movie> movieList = new ArrayList<>();
+
+    public Billboard() {
+    }
+
+    public Billboard(String theater) {
+        this.theater = theater;
+    }
 
 }
