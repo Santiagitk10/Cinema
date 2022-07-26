@@ -28,4 +28,9 @@ public class BillboardController {
         billboardService.addNewBillboard(billboard);
     }
 
+    @DeleteMapping(path = "{billboardId}")
+    public void deleteBillboard(@PathVariable("billboardId") Long billboardId){
+        billboardService.deleteBillboard(billboardId);
+    }
+
 }

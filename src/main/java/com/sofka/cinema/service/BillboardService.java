@@ -30,4 +30,12 @@ public class BillboardService {
         }
         billboardRepository.save(billboard);
     }
+
+    public void deleteBillboard(Long billboardId) {
+        boolean exists = billboardRepository.existsById(billboardId);
+        if(!exists){
+            throw new IllegalStateException("The Billboard with id" + billboardId + " does no exit");
+        }
+        billboardRepository.deleteById(billboardId);
+    }
 }
