@@ -15,11 +15,14 @@ public class Billboard {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long billboardId;
     private String theater;
+
     @OneToMany(
             cascade = CascadeType.ALL,
             fetch = FetchType.EAGER
     )
     private List<Movie> movieList = new ArrayList<>();
+
+
 
     public Billboard() {
     }

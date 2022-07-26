@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BillboardService {
@@ -20,5 +21,13 @@ public class BillboardService {
 
     public List<Billboard> getBillboards() {
         return billboardRepository.findAll();
+    }
+
+    public void addNewBillboard(Billboard billboard) {
+        Optional<Billboard> billboardOptional = billboardRepository.findBillboardByTheater(billboard.getTheater());
+        if(billboardOptional.isPresent()){
+            throw new IllegalStateException(billboard.getTheater() + " already has a Billboard");
+        }
+        billboardRepository.save(billboard);
     }
 }

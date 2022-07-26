@@ -23,21 +23,9 @@ public class BillboardController {
         return billboardService.getBillboards();
     }
 
-   /* @PostMapping
-    public void registerNewStudent(@RequestBody Student student){
-        studentService.addNewStudent(student);
+    @PostMapping
+    public void createNewBillboard(@RequestBody Billboard billboard){
+        billboardService.addNewBillboard(billboard);
     }
-
-    @DeleteMapping(path = "{studentId}")
-    public void deleteStudent(@PathVariable("studentId") Long studentId){
-        studentService.deleteStudent(studentId);
-    }
-
-    @PutMapping(path = "{studentId}")
-    public void updateStudent(@PathVariable("studentId") Long studentId,
-                              @RequestParam(required = false) String name,
-                              @RequestParam(required = false) String email){
-        studentService.updateStudent(studentId,name,email);
-    }*/
 
 }

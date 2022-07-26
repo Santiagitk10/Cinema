@@ -1,6 +1,7 @@
 package com.sofka.cinema.model;
 
 import lombok.Data;
+import lombok.Getter;
 
 import javax.persistence.*;
 
