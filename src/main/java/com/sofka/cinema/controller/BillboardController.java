@@ -33,4 +33,10 @@ public class BillboardController {
         billboardService.deleteBillboard(billboardId);
     }
 
+    @PatchMapping(path = "{billboardId}")
+    public void updateBillboard(@PathVariable("billboardId") Long billboardId,
+                                @RequestParam() String theater){
+        billboardService.updateBillboard(billboardId,theater);
+    }
+
 }
