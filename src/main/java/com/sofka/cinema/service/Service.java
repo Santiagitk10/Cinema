@@ -1,23 +1,26 @@
 package com.sofka.cinema.service;
 
 import com.sofka.cinema.model.Billboard;
+import com.sofka.cinema.model.Movie;
 import com.sofka.cinema.repository.BillboardRepository;
+import com.sofka.cinema.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-@Service
-public class BillboardService {
+@org.springframework.stereotype.Service
+public class Service {
 
 
     private BillboardRepository billboardRepository;
+    private MovieRepository movieRepository;
 
     @Autowired
-    public BillboardService(BillboardRepository billboardRepository) {
+    public Service(BillboardRepository billboardRepository, MovieRepository movieRepository) {
         this.billboardRepository = billboardRepository;
+        this.movieRepository = movieRepository;
     }
 
     public List<Billboard> getBillboards() {
@@ -32,11 +35,29 @@ public class BillboardService {
         billboardRepository.save(billboard);
     }
 
+    public void createMovie(Movie movie){
+        Billboard billboard = billboardRepository.findById(movie.getFkBillboardId()).get();
+        billboard.addMovie(movie);
+        movieRepository.save(movie);
+        billboardRepository.save(billboard);
+    }
+
+
+    public void deleteMovie(Long movieId){
+        movieRepository.deleteById(movieId);
+    }
+
     public void deleteBillboard(Long billboardId) {
         boolean exists = billboardRepository.existsById(billboardId);
         if(!exists){
             throw new IllegalStateException("The Billboard with id" + billboardId + " does no exit");
         }
+
+        Billboard billboard = billboardRepository.findById(billboardId).get();
+        if(billboard.getMovieList().size() > 0){
+            billboard.getMovieList().forEach(movie -> movieRepository.deleteById(movie.getMovieId()));
+        }
+
         billboardRepository.deleteById(billboardId);
     }
 

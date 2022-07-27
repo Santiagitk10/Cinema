@@ -12,7 +12,15 @@ import java.util.List;
 public class Billboard {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(
+            name = "billboard_sequence",
+            sequenceName = "billboard_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "billboard_sequence"
+    )
     private Long billboardId;
     private String theater;
 
@@ -23,12 +31,15 @@ public class Billboard {
     private List<Movie> movieList = new ArrayList<>();
 
 
-
     public Billboard() {
     }
 
     public Billboard(String theater) {
         this.theater = theater;
+    }
+
+    public void addMovie(Movie movie){
+        this.movieList.add(movie);
     }
 
 }
